@@ -3,7 +3,7 @@ sudo: required
 jdk: oraclejdk8
 
 before_cache:
- 
+ - echo "Before cache execution"
  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 
  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -63,7 +63,7 @@ android:
  - google-gdk-license-.+
 
 before_install:
-
+- echo "Before install execution"
 - openssl aes-256-cbc -K $encrypted_c0801aa05af4_key -iv $encrypted_c0801aa05af4_iv -in example_keystore.jks.enc -out example_keystore.jks -d
 - mkdir "$ANDROID_HOME/licenses" || true
 
@@ -74,7 +74,7 @@ before_install:
 - ./gradlew dependencies || true
 
 before_script:
-
+- echo "Before script execution"
 - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
 
 - emulator -avd test -no-skin -no-audio -no-window &
@@ -88,7 +88,7 @@ script:
 - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
 
 before_deploy:
-
+- echo "Before deploy execution"
 - cp $TRAVIS_BUILD_DIR/example_keystore.jks $HOME
 
 - cd app/build/outputs/apk/
